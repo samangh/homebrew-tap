@@ -6,7 +6,7 @@ class Gptfdisk < Formula
   sha256 "be9c4ae2c56b5ca7f476aa5f9afcf55c183561629d73dae3c02539dbf08c8b52"
 
   depends_on "popt"
-  option "", "Use icu4c instead of internal functions for UTF-16 support. Use this if you are having problems with the new UTF-16 support."
+  option "with-icu4c", "Use icu4c instead of internal functions for UTF-16 support. Use this if you are having problems with the new UTF-16 support."
   depends_on "icu4c" => :optional
 
   def install
