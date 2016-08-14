@@ -2,7 +2,6 @@ class Gptfdisk < Formula
   desc "Text-mode GPT partitioning tools"
   homepage "https://sourceforge.net/projects/gptfdisk/"
   url "https://github.com/samangh/gptfdisk/archive/v1.0.1.tar.gz"
-  version "1.0.1"
   sha256 "be9c4ae2c56b5ca7f476aa5f9afcf55c183561629d73dae3c02539dbf08c8b52"
 
   option "with-icu4c", "Use icu4c instead of internal functions for UTF-16 support. Use this if you are having problems with the new UTF-16 support."
