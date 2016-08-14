@@ -5,10 +5,11 @@ class Gptfdisk < Formula
   version "1.0.1"
   sha256 "be9c4ae2c56b5ca7f476aa5f9afcf55c183561629d73dae3c02539dbf08c8b52"
 
-  depends_on "popt"
+  
   option "with-icu4c", "Use icu4c instead of internal functions for UTF-16 support. Use this if you are having problems with the new UTF-16 support."
   depends_on "icu4c" => :optional
-
+  depends_on "popt"
+  
   def install
     #Patch, upstream looks for wrong ncurses library
     inreplace "Makefile.mac", "/opt/local/lib/libncurses.a", "/usr/lib/libncurses.dylib"
