@@ -1,4 +1,4 @@
-class Classdump < Formula
+class Class-dump < Formula
   desc "Utility for examining the Objective-C segment of Mach-O files"
   homepage "http://stevenygard.com/projects/class-dump/"
   url "https://github.com/samangh/class-dump/archive/v3.5-1.tar.gz"
