@@ -1,15 +1,21 @@
-class Gptfdisk < Formula
+lass Gptfdisk < Formula
   desc "Text-mode GPT partitioning tools"
   homepage "https://sourceforge.net/projects/gptfdisk/"
   url "https://github.com/samangh/gptfdisk/archive/v1.0.1.tar.gz"
   version "1.0.1"
-  sha256 "be9c4ae2c56b5ca7f476aa5f9afcf55c183561629d73dae3c02539dbf08c8b52"
+  sha256 "864c8aee2efdda50346804d7e6230407d5f42a8ae754df70404dd8b2fdfaeac7"
 
   depends_on "popt"
-  depends_on "icu4c"
+  depends_on "icu4c" => :optional
 
   def install
+    #Patch, upstream looks for wrong ncurses library
     inreplace "Makefile.mac", "/opt/local/lib/libncurses.a", "/usr/lib/libncurses.dylib"
+
+    #Optional UTF-16 support from icu4c
+    if build.with? "icu4c"
+        inreplace "Makefile.mac", "-Wall", "-Wall -D USE_UTF16"
+    end
 
     system "make", "-f", "Makefile.mac"
     sbin.install "gdisk", "cgdisk", "sgdisk", "fixparts"
