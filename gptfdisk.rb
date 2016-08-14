@@ -11,12 +11,12 @@ class Gptfdisk < Formula
   depends_on "popt"
   
   def install
-    #Patch, upstream looks for wrong ncurses library
+    # Patch, upstream looks for wrong ncurses library
     inreplace "Makefile.mac", "/opt/local/lib/libncurses.a", "/usr/lib/libncurses.dylib"
 
-    #Optional UTF-16 support from icu4c
+    # Optional UTF-16 support from icu4c
     if build.with? "icu4c"
-        inreplace "Makefile.mac", "-Wall", "-Wall -D USE_UTF16"
+      inreplace "Makefile.mac", "-Wall", "-Wall -D USE_UTF16"
     end
 
     system "make", "-f", "Makefile.mac"
