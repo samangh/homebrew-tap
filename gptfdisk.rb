@@ -1,26 +1,16 @@
 class Gptfdisk < Formula
   desc "Text-mode GPT partitioning tools"
   homepage "https://sourceforge.net/projects/gptfdisk/"
-  url "https://newcontinuum.dl.sourceforge.net/project/gptfdisk/gptfdisk/1.0.3/gptfdisk-1.0.3.tar.gz"
-  sha256 "89fd5aec35c409d610a36cb49c65b442058565ed84042f767bba614b8fc91b5c"
+  url "https://downloads.sourceforge.net/project/gptfdisk/gptfdisk/1.0.4/gptfdisk-1.0.4.tar.gz"
+  sha256 "b663391a6876f19a3cd901d862423a16e2b5ceaa2f4a3b9bb681e64b9c7ba78d"
 
-  option "with-icu4c", "Use icu4c instead of internal functions for UTF-16 support. Use this if you are having problems with the new UTF-16 support."
   option "with-sgdisk", "Compile sgdisk."
   option "without-cgdisk", "Do not compile cgdisk."
   option "without-fixparts", "Do not compile fixparts."
 
-  depends_on "icu4c" => :optional
   depends_on "popt" if build.with?("sgdisk")
 
   def install
-    # Patch, upstream looks for wrong ncurses library
-    inreplace "Makefile.mac", "/opt/local/lib/libncurses.a", "/usr/lib/libncurses.dylib"
-
-    # Optional UTF-16 support from icu4c
-    if build.with? "icu4c"
-      inreplace "Makefile.mac", "-Wall", "-Wall -D USE_UTF16"
-    end
-
     opts = ["gdisk"]
     opts << "sgdisk" if build.with? "sgdisk"
     opts << "cgdisk" if build.with? "cgdisk"
@@ -39,5 +29,9 @@ class Gptfdisk < Formula
   test do
     assert_match /GPT fdisk \(gdisk\) version #{Regexp.escape(version)}/,
                  pipe_output("#{sbin}/gdisk", "\n")
+    
+    output = pipe_output("/usr/bin/hdiutil create -size 128k test.dmg " \
+      "&& #{sbin}/gdisk -l test.dmg", nil, 0)
+    assert_match /^Found valid GPT with protective MBR/, output    
   end
 end
