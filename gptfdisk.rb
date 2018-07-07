@@ -22,8 +22,7 @@ class Gptfdisk < Formula
     sbin.install "sgdisk" if build.with? "sgdisk"
     sbin.install "fixparts" if build.with? "fixparts"
 
-    man8.install Dir["*.8"]
-    doc.install Dir["*.html"]
+    man8.install Dir["*.8"]    
   end
 
   test do
