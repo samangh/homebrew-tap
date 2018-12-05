@@ -1,6 +1,6 @@
 class Otx < Formula
-  homepage "https://github.com/darwin/otx"
-  head "https://github.com/darwin/otx.git"
+  homepage "https://github.com/samangh/otx"
+  head "https://github.com/samangh/otx.git"
 
   depends_on :xcode => :build
 
